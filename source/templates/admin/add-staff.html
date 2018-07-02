@@ -1,0 +1,142 @@
+{% extends 'base.html' %}
+{% block title %}主页{% end %}
+{% block head %}
+<link rel="stylesheet" type="text/css" href="{{static_url('common/js/mcalendar/mcalendar.css')}}">
+{% end %}
+{% block header %}
+{% end %}
+{% block setcontent %}
+{% set tab = 0 %}
+<div class="container pm80 pt0">
+    <div class="fixnav top-mnav">
+        <div class="wrap-pgoods-title">
+            <a href="{{reverse_url('shopmanage')}}?tab=2" class="back">返回</a>
+            <span class="font-color f18 add_edit_title">添加员工</span>
+        </div>
+    </div>
+    <div class="pop-member-content">
+        <div class="pop-user-info">
+            <img src="{{account_info["imgurl"]}} " alt="">
+            <p>{{account_info["realname"]}}</p>
+            <span class="">{{account_info["phone"]}}</span>
+            <div class="remark-box">
+                <p>备注</p>
+                <input type="input" class="remark-input" id="remark_input" value="{% if hire_link_dict and hire_link_dict["remarks"] %}{{hire_link_dict["remarks"]}}{% end %}">
+                <!-- <input type="text" class="remark-input" id="remark_input"> -->
+            </div>
+        </div>
+        <div class="select-role-box">
+            <p>角色选择(多选)</p>
+            <ul class="select-role-ul">
+                <li>
+                    <span class="pull-left f16">管理员</span>
+                    <div class="pull-right select-role-type admin_manage_is_active">
+                        <div class="switch-span switch_span admin_manage_switch_span {% if hire_link_dict and hire_link_dict['active_admin'] == 1%}switch-span-active{% end %}">
+                            <i class="switch-roll"></i>
+                            <span class="switch-txt">{% if hire_link_dict and hire_link_dict['active_admin']%}已开启{% else %}已关闭{% end %}</span>
+                        </div>
+                    </div>
+                </li>
+                <li class="select-btn border-none select_btn" style="height: 50px;">
+                    <span class="pull-left {% if hire_link_dict and hire_link_dict['active_admin'] == 1 and 1 in eval(hire_link_dict['admin_permission'])%}selected{% end %}" data-type="1">可删除商品<i></i></span>
+                    <span class="pull-right mt10 {% if hire_link_dict and hire_link_dict['active_admin'] == 1 and 2 in eval(hire_link_dict['admin_permission'])%}selected{% end %}" data-type="2">可添加/编辑商品<i></i></span>
+                </li>
+                <li class="select-btn select_btn" style="height: 60px;">
+                    <span class="pull-left {% if hire_link_dict and hire_link_dict['active_admin'] == 1 and 3 in eval(hire_link_dict['admin_permission'])%}selected{% end %}" data-type="3">可管理员工<i></i></span>
+                    <span class="pull-right {% if hire_link_dict and hire_link_dict['active_admin'] == 1 and 4 in eval(hire_link_dict['admin_permission'])%}selected{% end %}" data-type="4">可导出数据<i></i></span>
+                </li>
+                <li>
+                    <span class="pull-left">门店选择</span>
+                    <span class="pull-right select-shop-list clip admin_manage">
+                    {% if hire_link_dict and hire_link_dict['admin_shop_id_list']%}
+                        {% for list in shop_list %}
+                            {% if list['id'] in hire_link_dict['admin_shop_id_list'] %}
+                                {{list['shop_name']}}
+                            {% end %}
+                        {% end %}
+                    {%else%}
+                    所有{{shop_count}}个门店
+                    {% end %}</span>
+                </li>
+            </ul>
+
+            <ul class="select-role-ul mt20">
+                <li>
+                    <span class="pull-left f16">录入员</span>
+                    <div class="pull-right select-role-type recorder_pop_is_active">
+                        <div class="switch-span switch_span {% if hire_link_dict and hire_link_dict['active_recorder']%}switch-span-active{% end %}">
+                            <i class="switch-roll"></i>
+                            <span class="switch-txt">{% if hire_link_dict and hire_link_dict['active_recorder']%}已开启{% else %}已关闭{% end %}</span>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <span class="pull-left">门店选择</span>
+                    <span class="pull-right select-shop-list clip recorder_pop">
+                    {% if hire_link_dict and hire_link_dict['recorder_shop_id'] %}
+                        {% for list in shop_list %}
+                            {% if list['id'] == hire_link_dict['recorder_shop_id']%}
+                                {{list['shop_name']}}
+                            {% end %}
+                        {% end %}
+                    {% else %}
+                    所有{{shop_count}}个门店
+                    {% end %}</span>
+                </li>
+            </ul>
+        </div>
+        <div class="add-member-operate-btn">
+            <span class="add-staff-cancle">取消</span>
+            <span class="add-staff-sure finish_add_or_efit_operate">完成添加</span>
+        </div>
+    </div>
+</div>
+<!-- 员工多选 -->
+<div class="pop-shop-list add_pop_shop_list hide">
+    <div class="pop-shop-list-content">
+        <div class="pop-shop-list-title">
+            <span class="pull-left font-color f16">选择门店(多选)</span>
+            <span class="select-all-btn select-all-btn select_all_btn select_all_hide pull-right"><i></i></span>
+            <span class="pull-right select_all_hide">全选</span>
+        </div>
+        <ul class="add-edit-shop-list add_edit_shop_list_ul multiple_choice">
+            {% for list in shop_list %}
+            <li data-id="{{list["id"]}}">
+                <span class="pull-left multiple_choice_shop_name">{{list["shop_name"]}}</span>
+                <span class="select-all-btn pull-right {% if hire_link_dict and  list['id'] in hire_link_dict['admin_shop_id_list'] %}active{% end %}"><i></i></span>
+            </li>
+            {% end %}
+        </ul>
+        <div class="pop-shop-list-foot">
+            <span class="pull-left pop_cancle">取消</span>
+            <span class="pull-right multiple_choice_complete">完成</span>
+        </div>
+    </div>
+</div>
+<!-- 员工单选 -->
+<div class="pop-shop-list edit_pop_shop_list hide">
+    <div class="pop-shop-list-content">
+        <div class="pop-shop-list-title">
+            <span class="pull-left font-color f16">选择门店(单选)</span>
+        </div>
+        <ul class="add-edit-shop-list add_edit_shop_list_ul single_choice">
+            {% for list in shop_list %}
+            <li data-id="{{list["id"]}}">
+                <span class="pull-left single_choice_shop_name" style="display: inline-block;line-height: 30px;">{{list["shop_name"]}}</span>
+                <span class="select-all-btn pull-right {% if hire_link_dict and  list['id']==hire_link_dict['recorder_shop_id'] %}active{% end %}"><i></i></span>
+            </li>
+            {% end %}
+        </ul>
+        <div class="pop-shop-list-foot">
+            <span class="pull-left pop_cancle">取消</span>
+            <span class="pull-right single_choice_complete">完成</span>
+        </div>
+    </div>
+</div>
+
+{% end %}
+{% block bottom %}
+
+<script src="{{static_url('admin/js/add-staff.js')}}"></script>
+
+{% end %}

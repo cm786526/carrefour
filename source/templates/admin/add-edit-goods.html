@@ -1,0 +1,99 @@
+{% extends 'base.html' %}
+{% block title %}主页{% end %}
+{% block head %}
+<link rel="stylesheet" type="text/css" href="{{static_url('common/js/mcalendar/mcalendar.css')}}">
+<!-- <link rel="stylesheet" type="text/css" href="{{static_url('kaipiao/css/main.css')}}"> -->
+{% end %}
+{% block header %}
+{% end %}
+{% block setcontent %}
+{% set tab = 0 %}
+<div class="container pm80 pt0">
+    <div class="fixnav top-mnav">
+        <div class="wrap-pgoods-title">
+            <a href="javascript: history.back(-1);" class="back">返回</a>
+            <span class="font-color f18 add_edit_title">添加商品</span>
+            <span class="pull-right delete-goods delete_goods hide">删除</span>
+        </div>
+    </div>
+    <div class="pop-member-content">
+        <div class="add-edit-member-box">
+            <ul class="add-edit-member-ul">
+                <li class="list-item">
+                    <span>分类</span>
+                    <div class="switch-type pull-right switch_type switch_classify_type mt10">
+                        <span class="switch-fruit pull-left {% if goods_info and goods_info['classify']==2 %}{% else %}active{% end %}" data-type="1">水果</span>
+                        <span class="switch-vegetable pull-right {% if goods_info and goods_info['classify']==2 %}active{% end %}" data-type="2">蔬菜</span>
+                    </div>
+                </li>
+                <li class="list-item">
+                    <span>商品编码</span>
+                    <input type="text" class="product-id pull-right" id="product_id" value="{% if goods_info %}{{goods_info["goods_code"]}}{% end %}">
+                </li>
+                <li class="list-item">
+                    <span>商品名称</span>
+                    <input type="text" class="add-goods-name pull-right" id="add_goods_name" value="{% if goods_info %}{{goods_info["goods_name"]}}{% end %}">
+                </li>
+                <li class="list-item">
+                    <span>单位</span>
+                    <div class="switch-type pull-right switch_type switch_unit_type mt10">
+                        <span class="switch-fruit pull-left {% if goods_info and goods_info['unit']==2 %}{% else %}active{% end %}" data-type="1">kg</span>
+                        <span class="switch-vegetable pull-right {% if goods_info and goods_info['unit']==2 %}active{% end %}"  data-type="2">PCS</span>
+                    </div>
+                </li>
+                <li class="list-item">
+                    <span>门店选择(多选)</span>
+                    <span class="pull-right select-shop">所有{{len(shop_list)}}个门店</span>
+                </li>
+            </ul>
+        </div>
+        <div class="add-member-operate-btn">
+            <span class="add-staff-cancle grey_btn cancle_cur_operate">取消</span>
+            <span class="add-staff-sure grey_btn finish_add_or_edit_operate" data-action="add_goods">完成添加</span>
+        </div>
+    </div>
+</div>
+
+<div class="pop-bwin pop-delete-box pop_delete_box hide">
+    <div class="pop-content">
+        <div class="pop-content-box">
+            <p class="content-title">删除商品</p>
+            <div class="wrap-profile-cbox">
+                <p>确认删除该商品吗？</p>
+            </div>
+        </div>
+        <div class="pop-btns-group no-shadow">
+            <div class="wrap-gbtns group">
+                <a href="javascript:;" class="cancel-btn closewin grey_btn">取消</a>
+                <a href="javascript:;" class="ok-btn delete_goods_sure  grey_btn" data-action="delete_goods">确定</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="pop-shop-list add_pop_shop_list hide">
+    <div class="pop-shop-list-content">
+        <div class="pop-shop-list-title">
+            <span class="pull-left font-color f16">选择门店(多选)</span>
+            <span class="select-all-btn select-all-btn select_all_btn select_all_hide pull-right"><i></i></span>
+            <span class="pull-right select_all_hide">全选</span>
+        </div>
+        <ul class="add-edit-shop-list add_edit_shop_list_ul multiple_choice">
+            {% for list in shop_list %}
+            <li data-id="{{list["id"]}}">
+                <span class="pull-left multiple_choice_shop_name">{{list["shop_name"]}}</span>
+                <span class="select-all-btn pull-right {% if goods_info and  list['id'] in goods_info['goods_shop_list'] %}active{% end %}"><i></i></span>
+            </li>
+            {% end %}
+        </ul>
+        <div class="pop-shop-list-foot">
+            <span class="pull-left pop_cancle grey_btn">取消</span>
+            <span class="pull-right multiple_choice_complete grey_btn">完成</span>
+        </div>
+    </div>
+</div>
+
+{% end %}
+{% block bottom %}
+<script src="{{static_url('admin/js/add-edit-goods.js')}}"></script>
+{% end %}

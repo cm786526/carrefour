@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+{% block title %}商品详情主页{% end %}
+{% block head %}
+<link rel="stylesheet" type="text/css" href="{{static_url('common/js/mcalendar/mcalendar.css')}}">
+{% end %}
+{% block header %}
+{% end %}
+{% block setcontent %}
+{% set tab = 0 %}
+<input type="hidden" id="goods_id" value="{{goods_info['goods_id']}}">
+<div class="container pm80 pt0">
+    <div class="fixnav top-mnav">
+        <div class="wrap-pgoods-title">
+            <a href="javascript: history.back(-1);" class="back go_back">返回</a>
+            <span class="font-color f18">{{goods_info['goods_name']}}</span>
+        </div>
+    </div>
+    <div class="goods-detail-box" style="padding-top: 50px;">
+        <div class="goods-echarts-map-box">
+            <div class="goods-echarts-map" id="chart_goods">
+
+            </div>
+        </div>
+        <div class="data-indicator-box hide">
+            <ul class="data-indicator-ul data_indicator_ul">
+                <li class="list-item active-1" data-type="order">订货<span></span></li>
+                <li class="list-item active-2" data-type="sales">销量<span></span></li>
+                <li class="list-item active-3" data-type="loss">损耗<span></span></li>
+                <li class="list-item active-4" data-type="arrival">到货<span></span></li>
+            </ul>
+        </div>
+        <div class="query-type-box query_type_box_1 mt30">
+            <div class="head">
+                <ul class="query-type-ul query_type_ul">
+                    <li class="active" data-type="day">按天</li>
+                    <li data-type="week">按周</li>
+                    <li data-type="month">按月</li>
+                </ul>
+            </div>
+            <div class="query-type-main-content day_data_list_box">
+                <ul>
+                    <li class="date-big-length">日期</li>
+                    <li>订货</li>
+                    <li><span class="four-num">昨日损耗</span></li>
+                    <li><span class="four-num">昨日销量</span></li>
+                    <li><span class="four-num">今日到货</span></li>
+                    <li><span class="four-num">今日进价</span></li>
+                    <li><span class="four-num">今日售价</span></li>
+                    <li><span class="four-num">当前库存</span></li>
+                </ul>
+                <!-- <ul class="day_data_list">
+                    <li class="date-big-length">昨天</li>
+                    <li>4562</li>
+                    <li><span class="four-num">456</span></li>
+                    <li><span class="four-num">5632</span></li>
+                    <li><span class="four-num">856</span></li>
+                    <li><span class="four-num">15.02</span></li>
+                    <li><span class="four-num">50.36</span></li>
+                    <li><span class="four-num">415</span></li>
+                </ul> -->
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% end %}
+{% block bottom %}
+<script src="{{static_url('common/js/echarts.min.js')}}"></script>
+<script src="{{static_url('recorder/js/goods-detail.js')}}"></script>
+{% end %}

@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% block title %}{% end %}
+{% block head %}
+<link rel="stylesheet" type="text/css" href="{{static_url('common/js/mcalendar/mcalendar.css')}}">
+{% end %}
+{% block header %}
+{% end %}
+{% block setcontent %}
+{% set tab = 0 %}
+<input type="hidden" id="cur_shop_id" value="{{shop_info['shop_id']}}">
+<div class="">
+    <div class="fixnav top-mnav">
+        <div class="wrap-pgoods-title">
+            <a href="javascript: history.back(-1);" class="back">返回</a>
+            <span class="font-color f18 add_edit_title">{{shop_info['shop_name']}}</span>
+        </div>
+    </div>
+    <div class="record-box" style="padding-top: 50px;">
+            <div class="record-box-head">
+                <div class="wrap-date-btn">
+                    <input type="text" class="date-ipt-btn choose_date" readonly="true" onclick="initMCalendar({sureDate:function(){}},$(this));">
+                    <i></i>
+                </div>
+                <span class="ml20 record_weather_span">周四，晴，2~13℃</span>
+            </div>
+            <div class="record-list-box" id="wrapper" style="position:relative;bottom: 0;">
+                <div class="cur-day-record-list cur_day_record_list" style="width: 680px;" id="scroller">
+                    <ul class="record-list-header">
+                        <li class="li-item-1">商品名</li>
+                        <li >单位</li>
+                        <li>订货</li>
+                        <li><span class="four-num">昨日损耗</span></li>
+                        <li><span class="four-num">昨日销量</span></li>
+                        <li><span class="four-num">今日到货</span></li>
+                        <li><span class="four-num">今日进价</span></li>
+                        <li><span class="four-num">今日售价</span></li>
+                        <li><span class="four-num">当前库存</span></li>
+                        <li class="li-item-2"><span class="four-num">提交时间</span></li>
+                        <li class="li-item-3">提交人</li>
+                    </ul>
+                    <!-- <ul class="cur_day_record_list_item">
+                        <li class="li-item-1">哈哈</li>
+                        <li>kg</li>
+                        <li>1000</li>
+                        <li>20</li>
+                        <li>800</li>
+                        <li>12.5</li>
+                        <li>15</li>
+                        <li>19</li>
+                        <li>50</li>
+                        <li class="li-item-2">2014.12.45</li>
+                        <li class="li-item-3 clip">65165165165</li>
+                    </ul> -->
+                </div>
+            </div>
+    </div>
+</div>
+
+{% end %}
+{% block bottom %}
+<script src="{{static_url('common/js/mcalendar/mcalendar.js')}}"></script>
+<script src="{{static_url('common/js/iscroll.js')}}"></script>
+<script src="{{static_url('admin/js/shop-record.js')}}"></script>
+{% end %}

@@ -1,0 +1,7 @@
+*.pyc
+_pycache_
+settings.py
+exportdata
+celerybeat-schedule
+
+source/utils/uploadfile/

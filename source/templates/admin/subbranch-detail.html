@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+{% block title %}主页{% end %}
+{% block head %}
+<link rel="stylesheet" type="text/css" href="{{static_url('common/js/mcalendar/mcalendar.css')}}">
+<!-- <link rel="stylesheet" type="text/css" href="{{static_url('kaipiao/css/main.css')}}"> -->
+{% end %}
+{% block header %}
+{% end %}
+{% block setcontent %}
+{% set tab = 0 %}
+<div class="container pt0">
+    <div class="fixnav top-mnav">
+        <div class="wrap-pgoods-title">
+            <a href="javascript: history.back(-1);" class="back">返回</a>
+            <span class="font-color add_edit_title">各分店详情</span>
+        </div>
+    </div>
+    <div class="subbranch-detail-box">
+        <a href="/common/goodsdetail?action=get_details&goods_id={{goods_info["goods_id"]}}" class="cur-goods-sale-in-shop">{{goods_info["goods_name"]}}({{goods_info["unit_text"]}})</a>
+        <div class="head">
+            <span class="mr10">按天</span>
+            <div class="wrap-date-btn">
+                <input type="text" class="date-ipt-btn choose_date date_by_day" readonly="true" onclick="initMCalendar({sureDate:function(){}},$(this));">
+                <i></i>
+            </div>
+            <span></span>
+        </div>
+        <div class="query-type-box query_type_box_1">
+            <div class="query-type-main-content day_data_list_box">
+                <ul style="border-bottom: 1px solid #ddd;">
+                    <li class="date-big-length">店铺名</li>
+                    <li>订货</li>
+                    <li><span class="four-num">昨日损耗</span></li>
+                    <li><span class="four-num">昨日销量</span></li>
+                    <li><span class="four-num">今日到货</span></li>
+                    <li><span class="four-num">今日进价</span></li>
+                    <li><span class="four-num">今日售价</span></li>
+                    <li><span class="four-num">当前库存</span></li>
+                </ul>
+                <ul class="day_data_list">
+                    <li class="date-big-length clip">昨天</li>
+                    <li>4562</li>
+                    <li>456</li>
+                    <li>5632</li>
+                    <li>856</li>
+                    <li>15.02</li>
+                    <li>50.36</li>
+                    <li>415</li>
+                </ul>
+            </div>
+        </div>
+        <div class="head mt30">
+            <span class="mr10">按周</span>
+            <div class="wrap-date-btn">
+                <input type="text" class="date-ipt-btn choose_date week date_by_week" readonly="true" onclick="initMCalendar({sureDate:function(){}},$(this));">
+                <i></i>
+            </div>
+        </div>
+        <div class="query-type-box query_type_box_2 ">
+            <div class="query-type-main-content total_data_list_box">
+                <ul style="border-bottom: 1px solid #ddd;">
+                    <li class="date-big-length">店铺名</li>
+                    <li><span class="four-num">累计订货</span></li>
+                    <li><span class="four-num">累计损耗</span></li>
+                    <li><span class="four-num">累计销量</span></li>
+                    <li><span class="four-num">累计到货</span></li>
+                    <li><span class="four-num">平均进价</span></li>
+                    <li><span class="four-num">平均售价</span></li>
+                </ul>
+                <ul class="total_data_list">
+                    <li class="date-big-length clip">昨天</li>
+                    <li>4562</li>
+                    <li>456</li>
+                    <li>5632</li>
+                    <li>856</li>
+                    <li>15.02</li>
+                    <li>50.36</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{% end %}
+{% block bottom %}
+<script src="{{static_url('common/js/mcalendar/mcalendar.js')}}"></script>
+<script src="{{static_url('admin/js/subbranch-detail.js')}}"></script>
+
+{% end %}

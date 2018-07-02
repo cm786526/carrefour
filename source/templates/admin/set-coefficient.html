@@ -1,0 +1,117 @@
+
+{% extends 'base.html' %}
+{% block title %}设置预定量系数{% end %}
+{% block head %}
+
+{% end %}
+{% block header %}
+{% end %}
+{% block setcontent %}
+{% set tab = 0 %}
+<div class="container pt0">
+    <div class="fixnav top-mnav">
+        <div class="wrap-pgoods-title">
+            <a href="javascript: history.back(-1);" class="back">返回</a>
+            <span class="font-color f18 add_edit_title">设置预定量系数</span>
+            <span class="pull-right delete-goods delete_goods hide">删除</span>
+        </div>
+    </div>
+    <div class="goods-head group">
+        <div class="switch-type switch_type" style="width: 180px;">
+            <span class="switch-fruit pull-left active" data-type="1" style="width: 33.333%;">水果</span>
+            <span class="switch-vegetable pull-left" data-type="2" style="width: 33.333%;">蔬菜</span>
+            <span class="switch-promotion pull-left" data-type="3" style="width: 33.333%;">促销</span>
+        </div>
+    </div>
+    <ul class="ratio-list fruit_ratio_list">
+        <!-- <li>
+            <span class="region-name">武汉</span>
+            预定量系数
+            <span class="ratio-value">2.5</span>
+        </li> -->
+    </ul>
+    <ul class="ratio-list vegetable_ratio_list hide">
+    </ul>
+    <ul class="ratio-list discount-ratio-list discount_ratio_list hide">
+    </ul>
+    <div class="ratio-desc" style="padding: 10px;">
+        <p>预定量 = [(昨日销量+损耗)*K - 当天库存]*订货周期</p>
+        <p>常用系数说明：</p>
+        <p class="ml10">A. k=1 正常</p>
+        <p class="ml10">B. k=2 周六日</p>
+        <p class="ml10">C. k=2.2 节日</p>
+        <p class="ml10">D. k=1.8~3.5 促销</p>
+        <p class="ml20 sub-desc-c9b">D1. k=1.8~2.2 销售价格指数下降15%</p>
+        <p class="ml20 sub-desc-c9b">D2. k=2.5~3.5 销售价格指数下降35%</p>
+        <p class="ml10">E. k=0.6~0.8 天气影响正常</p>
+        <p class="ml20 sub-desc-c9b">E1. k=0.8 天气影响小雨</p>
+        <p class="ml20 sub-desc-c9b">E2. k=0.6 天气影响大雨</p>
+        <p class="ml10">F. k=2.2~0.4 天气影响周末节日</p>
+        <p class="ml10">G. k=2.2~0.3 天气影响促销</p>
+        <p class="ml10">G. k=3.5~0.4 天气影响促销</p>
+    </div>
+</div>
+
+<!-- 设置预定量系数 -->
+<div class="pop-bwin hide" id="pop_entering_keyboard" style="bottom: 0;">
+        <div class="pop-keyboard-content">
+            <div class="keyboard-nav">
+                <div class="wrap-keyboard">
+                    <div class="group keyboard-box-title">
+                        <span class="pull-left" style="display: inline-block;height: 42px;line-height: 42px;">
+                            <span class="pull-left cur_region_name font-color clip" style="display: inline-block;max-width: 118px;"></span>
+                            <span class="pull-left">预订量系数设置</span>
+                        </span>
+                        <span class="pull-right close-keyb close_keyb"></span>
+                    </div>
+                    <div class="region-weather-box">
+                        <span class="cur_region_name">武汉</span><span>：</span>
+                        <p class="tomorrow" style="padding-left: 28px;">明天，周三，小雨，2~13℃，清明节</p>
+                        <p class="after_tomorrow" style="padding-left: 28px;">明天，周三，小雨，2~13℃，清明节</p>
+                    </div>
+                    <div class="" style="padding: 10px 20px;">
+                        <input class="modify-coefficient float_num_ipt modify-coefficient-active" readonly="readonly" placeholder="输入系数">
+                    </div>
+                    <div class="wrap-keyboard-tb">
+                        <table class="keyboard-tb keyboard_tb">
+                            <tr>
+                                <td data-key="1">1</td>
+                                <td data-key="2">2</td>
+                                <td data-key="3">3</td>
+                                <td class="operate-tr" style="position: relative;">
+                                    <div class="keyboard-operate keyboard_cancel">取消</div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td data-key="4">4</td>
+                                <td data-key="5">5</td>
+                                <td data-key="6">6</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td data-key="7">7</td>
+                                <td data-key="8">8</td>
+                                <td data-key="9">9</td>
+                                <td class="operate-tr"style="position: relative;">
+                                    <div class="keyboard-operate set_keyboard_sure bg-sure">确认</div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="td-grey" data-key="点">.</td>
+                                <td data-key="0">0</td>
+                                <td class="td-grey delete_key" data-key="删除"><img class="delete-kimg" src="/static/kaipiao/img/delete.png" alt="删除"></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+</div>
+
+{% end %}
+{% block bottom %}
+<script src="{{static_url('kaipiao/js/kaipiao.js')}}"></script>
+<!-- <script src="{{static_url('kaipiao/js/base.js')}}"></script> -->
+<script src="{{static_url('kaipiao/js/profile.js')}}"></script>
+<script src="{{static_url('admin/js/set-coefficient.js')}}"></script>
+{% end %}
